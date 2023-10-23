@@ -20,11 +20,12 @@ public class Evolution {
 	
 	public void GeneratePopulations(int generationsCount, Fitness fitness) {
 		
+		SelectionByFitness selection = new SelectionByFitness(generationsCount);
 		Population currentPopulation = GenerateRandomPopulation();
 		
 		for (int i = 0; i < generationsCount; i++)
 		{
-			currentPopulation = GenerateNextPopulation(currentPopulation, fitness, i);
+			currentPopulation = GenerateNextPopulation(currentPopulation, fitness, i, selection);
 			
 		}
 	}
@@ -44,9 +45,9 @@ public class Evolution {
 	
 	
 	private Population GenerateNextPopulation(
-			Population currentPopulation, Fitness fitness, int order)
+			Population currentPopulation, Fitness fitness, int order, SelectionByFitness selection)
 	{
-		SelectionByFitness selection = new SelectionByFitness();
+		
 		selection.CreateSelectionPool(currentPopulation.GetIndividuals(), fitness, order);
 		
 		Population nextPopulation = new Population();

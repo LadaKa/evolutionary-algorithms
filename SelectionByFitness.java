@@ -10,6 +10,13 @@ public class SelectionByFitness {
 	Map<Integer, Individual> selectionPool;
 	int maxPoolKey;
 	
+	Result result;
+	
+	public SelectionByFitness(int generationCount)
+	{
+		result = new Result(generationCount);
+	}
+	
 	public Map<Integer, Individual> CreateSelectionPool(
 			ArrayList<Individual> individuals,
 			Fitness fitness,
@@ -21,9 +28,14 @@ public class SelectionByFitness {
 		float sum = 0f;
 		int max = 0;
 		
-		for (Individual individual : individuals)
+		float[] allFitness = new float[individuals.size()];
+		
+		for (int i = 0; i < individuals.size(); i++)
 		{
+			Individual individual = individuals.get(i);
 			int fitnessValue = fitness.EvaluateIndividualFitness(individual);
+			
+			allFitness[i] = fitnessValue;
 			sum = sum + fitnessValue;
 			if (fitnessValue > max)
 				max = fitnessValue;
