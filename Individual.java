@@ -2,7 +2,7 @@ package main;
 
 public class Individual {
 	
-	private boolean[] individualVector; 
+	public boolean[] individualVector; // TODO
 	
 	public Individual(boolean[] _individualVector)
 	{

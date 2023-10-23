@@ -7,10 +7,10 @@ import java.util.Random;
 
 public class SelectionByFitness {
 
-	Map<Integer, Individual> selectionPool;
-	int maxPoolKey;
+	private Map<Integer, Individual> selectionPool;
+	private int maxPoolKey;
 	
-	Result result;
+	private Result result;
 	
 	public SelectionByFitness(int generationCount)
 	{
@@ -39,15 +39,19 @@ public class SelectionByFitness {
 			sum = sum + fitnessValue;
 			if (fitnessValue > max)
 				max = fitnessValue;
+			
+			
 			fitnessIndex = fitnessIndex + fitnessValue + 1;
+			
 			selectionPool.put(fitnessIndex, individual);
 			maxPoolKey = fitnessIndex;
+			
 		}
 		
 		float avg = sum/individuals.size();
 		
+		result.Update(allFitness, avg, max, generationNumber);
 		
-		System.out.print(max + ", ");
 		return selectionPool;		
 	}
 	
@@ -62,5 +66,10 @@ public class SelectionByFitness {
 				return selectionPool.get(key);
 		}
 		return null;
+	}
+	
+	public Result GetResult()
+	{
+		return result;
 	}
 }

@@ -34,19 +34,19 @@ public class Result {
 	}
 	
 	
-	static Result ComputeAverageOfAllResults(Result[] allResults, int length)
+	static Result ComputeAverageOfAllResults(Result[] allResults, int generationCount)
 	{
-		Result result = new Result(length);
+		Result result = new Result(generationCount);
 		
 		float count = allResults.length;
-		
-		float avg = 0;
-		float max = 0;
-		float q1 = 0;
-		float q3 = 0;
-				
-		for (int i = 0; i < length; i++)
+					
+		for (int i = 0; i < generationCount; i++)
 		{
+			float avg = 0;
+			float max = 0;
+			float q1 = 0;
+			float q3 = 0;
+			
 			for (Result r : allResults)
 			{
 				avg = avg + r.avg[i];
@@ -63,4 +63,26 @@ public class Result {
 		
 		return result;
 	}
+
+	// TODO: override?
+	
+	public void Print()
+	{
+		Print("avg", avg);
+		Print("max", max);
+		Print("firstQuartal", firstQuartal);
+		Print("thirdQuartal", thirdQuartal);
+	}
+	
+	public void Print(String title, float[] values)
+	{
+		System.out.println(title);
+		for (float value : values)
+		{
+			System.out.print(value + ", ");
+		}
+		System.out.println();
+		
+	}
+
 }

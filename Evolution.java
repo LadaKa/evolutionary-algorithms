@@ -18,7 +18,7 @@ public class Evolution {
 	}
 
 	
-	public void GeneratePopulations(int generationsCount, Fitness fitness) {
+	public Result GeneratePopulations(int generationsCount, Fitness fitness) {
 		
 		SelectionByFitness selection = new SelectionByFitness(generationsCount);
 		Population currentPopulation = GenerateRandomPopulation();
@@ -28,6 +28,8 @@ public class Evolution {
 			currentPopulation = GenerateNextPopulation(currentPopulation, fitness, i, selection);
 			
 		}
+		//System.out.println(currentPopulation.GetIndividuals().size());
+		return selection.GetResult();
 	}
 	
 	
@@ -57,9 +59,24 @@ public class Evolution {
 			Individual parent1 = selection.SelectNext();
 			Individual parent2 = selection.SelectNext();
 			
-			Individual[] children = Cross(parent1, parent2);
-			nextPopulation.AddIndividual(children[0]);
-			nextPopulation.AddIndividual(children[1]);
+			//if (random.nextFloat(1)<= 0.50) // 	TODO: param
+			if (false)
+			{
+				Individual[] children = Cross(parent1, parent2);
+				nextPopulation.AddIndividual(children[0]);
+				nextPopulation.AddIndividual(children[1]);
+			}
+			else
+			{
+				int mutationIndex = random.nextInt(parent1.GetIndividualVector().length);
+				Individual children1 = new Individual(parent1.GetIndividualVector());
+				children1.individualVector[mutationIndex]=!(children1.individualVector[mutationIndex]);
+				Individual children2 = new Individual(parent2.GetIndividualVector());
+				children2.individualVector[mutationIndex]=!(children2.individualVector[mutationIndex]);
+				
+				nextPopulation.AddIndividual(children1);
+				nextPopulation.AddIndividual(children2);
+			}
 		}
 		
 		return nextPopulation;
