@@ -13,4 +13,18 @@ public class Individual {
 	{
 		return individualVector;
 	}
+	
+	@Override
+	public String toString()
+	{
+		String result = "[";
+		for (boolean b : individualVector)
+		{
+			int value = b ? 1 : 0;
+			result = result + value + " ";
+		}
+		result = result + "]";
+		return result;
+	}
+	 
 }
